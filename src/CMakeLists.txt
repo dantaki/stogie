@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project(stogie)
+set( CMAKE_C_FLAGS "-Wall -g -O3")
+include_directories (../lib/bamtools/src)
+add_executable(stogie stogie.cc)
+TARGET_LINK_LIBRARIES(stogie BamTools-static)
