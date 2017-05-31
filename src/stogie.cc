@@ -33,7 +33,7 @@ inline double  overlap(int32_t &s1, int32_t &e1, int32_t &s2, int32_t &e2)
 int main(int argc, char *argv[])
 {
 	string splash=	
-				"8\"\"\"\"8    \"\"8\"\"    8\"\"\"88    8\"\"\"\"8    8     8\"\"\"\" \n"
+				"\n8\"\"\"\"8    \"\"8\"\"    8\"\"\"88    8\"\"\"\"8    8     8\"\"\"\" \n"
 				"8           8      8    8    8    \"    8     8     \n"
 				"8eeeee      8e     8    8    8e        8e    8eeee \n"
 				"    88      88     8    8    88  ee    88    88    \n"
