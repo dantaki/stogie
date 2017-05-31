@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 				"    88      88     8    8    88  ee    88    88    \n"
 				"e   88      88     8    8    88   8    88    88    \n"
 				"8eee88      88     8eeee8    88eee8    88    88eee \n\n"	
-				"stogie         Validate SV with CIGAR strings\n"
+				"stogie         Validate Deletions with CIGAR strings\n"
 				"Version: 1.0	Author: Danny Antaki <dantaki@ucsd.edu>\n\n"
 				"Usage: stogie -i <in.bam> -r <sv.bed> -x <FLOAT> -q <INT> -o <output.txt>\n\nOptions:\n"
 				"    -i        Input: BAM filename\n"

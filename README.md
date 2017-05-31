@@ -22,7 +22,7 @@ cmake .. && make
 
 ## Usage 
 
-Spleet currently supports validation of deletion and duplication SV
+Stogie currently supports validation of deletion SV
 
 `stogie --help`
 
@@ -34,7 +34,7 @@ Spleet currently supports validation of deletion and duplication SV
 e   88      88     8    8    88   8    88    88
 8eee88      88     8eeee8    88eee8    88    88eee
 
-stogie         Validate SV with CIGAR strings
+stogie         Validate Deletions with CIGAR strings
 Version: 1.0	Author: Danny Antaki <dantaki@ucsd.edu>
 
 Usage: stogie -i <in.bam> -r <sv.bed> -x <FLOAT> -q <INT> -o <output.txt>
@@ -52,7 +52,7 @@ Options:
    *  BAM file must be indexed with `samtools index`
 
 * `-r    Input: SV bed file`
-   * The first four tab-delimited columns must be `CHROM START END [DEL|DUP]`   
+   * The first four tab-delimited columns must be `CHROM START END DEL`   
 
 ## Output
 
@@ -70,7 +70,7 @@ stogie uses [BamTools](https://github.com/pezmaster31/bamtools)
 Notice: BamTools requires [zlib](http://zlib.net/).
 
 ## License
-stogie: validate SV with CIGAR strings 
+stogie: validate Deletions with CIGAR strings 
 
 Copyright (C) 2017 Danny Antaki
 
