@@ -1,5 +1,5 @@
 # stogie
-Validate SV with CIGAR strings
+Validate Deletion SVs with CIGAR strings
 
 ## Install
 
