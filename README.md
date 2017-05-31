@@ -56,8 +56,8 @@ Options:
 
 ## Output
 
-| CHR | START | END | LENGTH | OVERLAP | READNAME | ALIGNMENT | STRANDS | SV | TYPE |
-| --- | ----- | --- | ------ | ------- | -------- | --------- | ------- | --- | --- | 
+| CHR | START | END | LENGTH | OVERLAP | READNAME | STRANDS | SV | TYPE |
+| --- | ----- | --- | ------ | ------- | -------- | ------- | --- | --- | 
 | 11 | 26679952 | 26680054 | 103 | 0.932039 | STOGIE_READ | + | 11:26679948-26680047 | DEL |
 
 ## Acknowledgements
