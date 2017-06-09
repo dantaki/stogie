@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 				"    88      88     8    8    88  ee    88    88    \n"
 				"e   88      88     8    8    88   8    88    88    \n"
 				"8eee88      88     8eeee8    88eee8    88    88eee \n\n"	
-				"stogie         Validate Deletions with CIGAR strings\n"
-				"Version: 1.0	Author: Danny Antaki <dantaki@ucsd.edu>\n\n"
+				"stogie         Validate SV with CIGAR strings\n"
+				"Version: 1.1	Author: Danny Antaki <dantaki@ucsd.edu>\n\n"
 				"Usage: stogie -i <in.bam> -r <sv.bed> -x <FLOAT> -q <INT> -o <output.txt>\n\nOptions:\n"
 				"    -i        Input: BAM filename\n"
 				"    -r        Input: SV bed file\n"
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 		if(pos.size()<4){ cerr << "ERROR: Malformed BED record " << line << endl; } 
 		int32_t start = atoi(pos[1].c_str()); int32_t end = atoi(pos[2].c_str()); 	
 		string CHR=pos[0]; string TYPE=pos[3];
-		if(TYPE.find("DEL")){ continue; }
+		if(TYPE.find("DEL") && TYPE.find("DUP")){ continue; }
 		if(chrFlag==false && !CHR.compare(0,3,"chr")) { CHR.erase(0,3); }
 		if(chrom.count(CHR)==0) { cerr << "ERROR: " << CHR << " not found in BAM file reference" << endl; return 1; }
 		if(!bam.LocateIndex()) { cerr << "ERROR: Cannot find index for BAM" << endl; return 1; }
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 			vector<CigarOp> cigar = al.CigarData;
 			al.BuildCharData();
 			for(vector<CigarOp>::iterator it=cigar.begin(); it != cigar.end(); ++it){
-                		if (it->Type == 'D' && it->Length > 19) {
+                		if ((it->Type == 'D' || it->Type=='I')  && it->Length > 19) {
                 			int32_t s1 = al.Position+len; 
 					int32_t e1 = al.Position+len+it->Length; 
 					s1++;  
