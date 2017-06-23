@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
 		int32_t start = atoi(pos[1].c_str()); int32_t end = atoi(pos[2].c_str()); 	
 		string CHR=pos[0]; string TYPE=pos[3];
 		if(TYPE.find("DEL") && TYPE.find("DUP")){ continue; }
+		char SV='-'; if(TYPE.find("DEL")){ SV='+';}
 		if(chrFlag==false && !CHR.compare(0,3,"chr")) { CHR.erase(0,3); }
 		if(chrom.count(CHR)==0) { cerr << "ERROR: " << CHR << " not found in BAM file reference" << endl; return 1; }
 		if(!bam.LocateIndex()) { cerr << "ERROR: Cannot find index for BAM" << endl; return 1; }
@@ -97,12 +98,19 @@ int main(int argc, char *argv[])
 			uint16_t len=0; 
 			vector<CigarOp> cigar = al.CigarData;
 			al.BuildCharData();
+			double overlaps[2];
 			for(vector<CigarOp>::iterator it=cigar.begin(); it != cigar.end(); ++it){
                 		if ((it->Type == 'D' || it->Type=='I')  && it->Length > 19) {
                 			int32_t s1 = al.Position+len; 
 					int32_t e1 = al.Position+len+it->Length; 
-					s1++;  
-					double ovr = overlap(start,end,s1,e1);
+					int32_t s2 = al.Position+len-it->Length;
+					int32_t e2 = s1;
+					s1++;  s2++;
+					if (SV == '-') { overlaps[0]=overlap(start,end,s1,e1); overlaps[1]=overlap(start,end,s1,e1); }
+					if (SV == '+') { overlaps[0]=overlap(start,end,s1,e1); overlaps[1]=overlap(start,end,s2,e2); } 
+					sort(overlaps,overlaps+2);
+					double ovr = overlaps[1];
+					if (ovr < 0){ continue; }
 					if (ovr >= OVR) { 
 					out << CHR << '\t' << s1 << '\t' << e1 << '\t' << e1-s1+1 << '\t' << ovr << '\t' << al.Name << '\t'<<  ori << '\t' << CHR << ':' << start << '-' << end << '\t' << TYPE << endl; 
 					}
