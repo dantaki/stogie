@@ -17,36 +17,36 @@ inline std::vector<std::string> split(std::string &s, char delim)
 }
 map <string, int> hashRef (const RefVector &ref)
 {
-        map<string, int> hash;
-        for(uint16_t i=0; i!= ref.size(); ++i){ hash[ref[i].RefName]=i;}
-        return hash;
+	map<string, int> hash;
+	for(uint16_t i=0; i!= ref.size(); ++i){ hash[ref[i].RefName]=i;}
+	return hash;
 } 
 inline double  overlap(int32_t &s1, int32_t &e1, int32_t &s2, int32_t &e2)
 {
-        int s[2]={s1,s2}; int e[2] = {e1,e2};
-        std::sort(s,s+2); std::sort(e,e+2);
-        int ovr = e[0]-s[1]+1;
-        float o[2] = { (float)ovr/(e2-s2+1), (float)ovr/(e1-s1+1)};
-        std::sort(o,o+2);
-        return o[0];
+	int s[2]={s1,s2}; int e[2] = {e1,e2};
+	std::sort(s,s+2); std::sort(e,e+2);
+	int ovr = e[0]-s[1]+1;
+	float o[2] = { (float)ovr/(e2-s2+1), (float)ovr/(e1-s1+1)};
+	std::sort(o,o+2);
+	return o[0];
 }
 int main(int argc, char *argv[])
 {
 	string splash=	
 				"\n8\"\"\"\"8    \"\"8\"\"    8\"\"\"88    8\"\"\"\"8    8     8\"\"\"\" \n"
-				"8           8      8    8    8    \"    8     8     \n"
-				"8eeeee      8e     8    8    8e        8e    8eeee \n"
+				"8	   8      8    8    8    \"    8     8     \n"
+				"8eeeee      8e     8    8    8e	8e    8eeee \n"
 				"    88      88     8    8    88  ee    88    88    \n"
 				"e   88      88     8    8    88   8    88    88    \n"
 				"8eee88      88     8eeee8    88eee8    88    88eee \n\n"	
-				"stogie         Validate SV with CIGAR strings\n"
+				"stogie	 Validate SV with CIGAR strings\n"
 				"Version: 1.1	Author: Danny Antaki <dantaki@ucsd.edu>\n\n"
 				"Usage: stogie -i <in.bam> -r <sv.bed> -x <FLOAT> -q <INT> -o <output.txt>\n\nOptions:\n"
-				"    -i        Input: BAM filename\n"
-				"    -r        Input: SV bed file\n"
-				"    -x        Minimum reciprocal overlap [0.5]\n" 
-				"    -q        Mapping quality threshold [10]\n"
-				"    -o        Output: filename\n";
+				"    -i	Input: BAM filename\n"
+				"    -r	Input: SV bed file\n"
+				"    -x	Minimum reciprocal overlap [0.5]\n" 
+				"    -q	Mapping quality threshold [10]\n"
+				"    -o	Output: filename\n";
 	string ifh; string bed; string ofh; int Q=10; double OVR=0.5;
 	if ( (argc==1) ||
 	     (argc==2 && string(argv[1]) == "-h") ||
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 	map<string, int> chrom = hashRef(refs);
 	bool chrFlag=0; if (!refs[0].RefName.compare(0, 3, "chr")){ chrFlag=1; } //chrFlag=true when reference is prefixed with "chr"  
 	ofstream out(ofh.c_str());
-        out << "CHR\tSTART\tEND\tLENGTH\tOVERLAP\tREADNAME\tSTRAND\tSV\tTYPE" << endl;
+	out << "CHR\tSTART\tEND\tLENGTH\tOVERLAP\tREADNAME\tSTRAND\tSV\tTYPE" << endl;
 	string line; while(getline(fin,line,'\n'))
 	{
 		vector<string> pos = split(line,'\t');
@@ -100,8 +100,8 @@ int main(int argc, char *argv[])
 			al.BuildCharData();
 			double overlaps[2];
 			for(vector<CigarOp>::iterator it=cigar.begin(); it != cigar.end(); ++it){
-                		if ((it->Type == 'D' || it->Type=='I')  && it->Length > 19) {
-                			int32_t s1 = al.Position+len; 
+				if ((it->Type == 'D' || it->Type=='I')  && it->Length > 19) {
+					int32_t s1 = al.Position+len; 
 					int32_t e1 = al.Position+len+it->Length; 
 					int32_t s2 = al.Position+len-it->Length;
 					int32_t e2 = s1;
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 					out << CHR << '\t' << s1 << '\t' << e1 << '\t' << e1-s1+1 << '\t' << ovr << '\t' << al.Name << '\t'<<  ori << '\t' << CHR << ':' << start << '-' << end << '\t' << TYPE << endl; 
 					}
 				}
-                		if(it->Type == 'D' || it->Type == 'M' || it->Type == '=' || it->Type == 'X') { len+=it->Length; }
+				if(it->Type == 'D' || it->Type == 'M' || it->Type == '=' || it->Type == 'X') { len+=it->Length; }
 			}	
 		
 		}
