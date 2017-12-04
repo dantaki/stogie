@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 					out << CHR << '\t' << s1 << '\t' << e1 << '\t' << e1-s1+1 << '\t' << ovr << '\t' << al.Name << '\t'<<  ori << '\t' << CHR << ':' << start << '-' << end << '\t' << TYPE << endl; 
 					}
 				}
-				if(it->Type == 'D' || it->Type == 'M' || it->Type == '=' || it->Type == 'X') { len+=it->Length; }
+				if(it->Type == 'N' || it->Type == 'D' || it->Type == 'M' || it->Type == '=' || it->Type == 'X') { len+=it->Length; }
 			}	
 		
 		}
